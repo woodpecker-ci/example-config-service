@@ -1,8 +1,8 @@
 # Woodpecker CI Configuration Service example
 
-This repository provides a very simplistic example of how to set up an external configuration service for Woodpecker CI
-The external service gets a HTTP POST request with information about the repo, current build, and the configs that would normally be used. 
-It can then decide to acnowledge the current configs (By returning HTTP 204), or overriding the configurations and returning new ones in the response
+This repository provides a very simplistic example of how to set up an external configuration service for **Woodpecker CI**
+The external service gets a **HTTP POST** request with information about the repo, current build, and the configs that would normally be used. 
+It can then decide to acnowledge the current configs (By returning **HTTP 204**), or overriding the configurations and returning new ones in the response
 
 Usecases for this system are: 
 - Centralized configuration for multiple repositories at once
@@ -13,7 +13,7 @@ Adjust the secret and add a filtering regex. The repositories that have a name m
 
 Then run using `go run .`. 
 
-Make sure to configure your woodpecker instance with the correct endpoint and configure the same secret. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
+Make sure to configure your woodpecker instance with the correct **endpoint** and configure the same **secret**. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
 
 eg: 
 
