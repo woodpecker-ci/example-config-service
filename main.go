@@ -10,6 +10,7 @@ import (
 	"regexp"
 
 	"github.com/99designs/httpsignatures-go"
+	"github.com/joho/godotenv"
 	"github.com/woodpecker-ci/woodpecker/server/model"
 )
 
@@ -30,18 +31,23 @@ var overrideConfiguration string
 func main() {
 	log.Println("Woodpecker central config server")
 
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+
 	secretToken := os.Getenv("CONFIG_SERVICE_SECRET")
 	host := os.Getenv("CONFIG_SERVICE_HOST")
 	filterRegex := os.Getenv("CONFIG_SERVICE_OVERRIDE_FILTER")
 
 	if secretToken == "" && host == "" {
-		log.Println("Please make sure CONFIG_SERVICE_HOST and CONFIG_SERVICE_SECRET are set properly")
-		os.Exit(1)
+		log.Fatal("Please make sure CONFIG_SERVICE_HOST and CONFIG_SERVICE_SECRET are set properly")
 	}
 
 	filter := regexp.MustCompile(filterRegex)
 
 	http.HandleFunc("/ciconfig", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("Incoming Request!")
 		if r.Method != http.MethodPost {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			return
@@ -90,8 +96,8 @@ func main() {
 
 	})
 
-	err := http.ListenAndServe(os.Getenv("CONFIG_SERVICE_HOST"), nil)
+	err = http.ListenAndServe(os.Getenv("CONFIG_SERVICE_HOST"), nil)
 	if err != nil {
-		log.Printf("Error on listen: %v", err)
+		log.Fatalf("Error on listen: %v", err)
 	}
 }
