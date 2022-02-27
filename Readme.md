@@ -8,7 +8,12 @@ Usecases for this system are:
 - Centralized configuration for multiple repositories at once
 - Preprocessing steps in the pipeline like templating, macros or conversion from different pipeline formats to woodpeckers format
 
-This service is written in go, run using `go run .`. Then configure your woodpecker instance to point to it and configure the same secret. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
+This service is written in go, to run it first copy the config example: `cp .env.example .env`
+Adjust the secret and add a filtering regex. The repositories that have a name match the filtering regex will receive the config from `central-pipeline-config.yaml`, while all other repositories will continue using their original configuration.
+
+Then run using `go run .`. 
+
+Make sure to configure your woodpecker instance with the correct endpoint and configure the same secret. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
 
 eg: 
 
