@@ -47,7 +47,6 @@ func main() {
 	filter := regexp.MustCompile(filterRegex)
 
 	http.HandleFunc("/ciconfig", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Incoming Request!")
 		if r.Method != http.MethodPost {
 			w.WriteHeader(http.StatusMethodNotAllowed)
 			return
