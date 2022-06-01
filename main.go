@@ -1,7 +1,9 @@
 package main
 
 import (
+	"crypto/ed25519"
 	_ "embed"
+	"encoding/hex"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -9,7 +11,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/99designs/httpsignatures-go"
+	"github.com/go-ap/httpsig"
 	"github.com/joho/godotenv"
 	"github.com/woodpecker-ci/woodpecker/server/model"
 )
@@ -36,13 +38,23 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
-	secretToken := os.Getenv("CONFIG_SERVICE_SECRET")
+	pubKeyPath := os.Getenv("CONFIG_SERVICE_PUBLIC_KEY_FILE")
 	host := os.Getenv("CONFIG_SERVICE_HOST")
 	filterRegex := os.Getenv("CONFIG_SERVICE_OVERRIDE_FILTER")
 
-	if secretToken == "" && host == "" {
-		log.Fatal("Please make sure CONFIG_SERVICE_HOST and CONFIG_SERVICE_SECRET are set properly")
+	if pubKeyPath == "" && host == "" {
+		log.Fatal("Please make sure CONFIG_SERVICE_HOST and CONFIG_SERVICE_PUBLIC_KEY_FILE are set properly")
 	}
+
+	pubKeyRaw, err := ioutil.ReadFile(pubKeyPath)
+	if err != nil {
+		log.Fatal("Failed to read public key file")
+	}
+	pubKeyStr, err := hex.DecodeString(string(pubKeyRaw))
+	if err != nil {
+		log.Fatal("Failed to decode public key")
+	}
+	pubKey := ed25519.PublicKey(pubKeyStr)
 
 	filter := regexp.MustCompile(filterRegex)
 
@@ -52,13 +64,23 @@ func main() {
 			return
 		}
 
-		signature, err := httpsignatures.FromRequest(r)
+		// check signature
+		pubKeyID := "woodpecker-ci-plugins"
+
+		keystore := httpsig.NewMemoryKeyStore()
+		keystore.SetKey(pubKeyID, pubKey)
+
+		verifier := httpsig.NewVerifier(keystore)
+		verifier.SetRequiredHeaders([]string{"(request-target)", "date"})
+
+		keyID, err := verifier.Verify(r)
 		if err != nil {
 			log.Printf("config: invalid or missing signature in http.Request")
 			http.Error(w, "Invalid or Missing Signature", http.StatusBadRequest)
 			return
 		}
-		if !signature.IsValid(secretToken, r) {
+
+		if keyID != pubKeyID {
 			log.Printf("config: invalid signature in http.Request")
 			http.Error(w, "Invalid Signature", http.StatusBadRequest)
 			return
