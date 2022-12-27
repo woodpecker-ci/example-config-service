@@ -2,9 +2,10 @@ package main
 
 import (
 	"crypto/ed25519"
+	"crypto/x509"
 	_ "embed"
-	"encoding/hex"
 	"encoding/json"
+	"encoding/pem"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -38,7 +39,7 @@ func main() {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 
-	pubKeyPath := os.Getenv("CONFIG_SERVICE_PUBLIC_KEY_FILE")
+	pubKeyPath := os.Getenv("CONFIG_SERVICE_PUBLIC_KEY_FILE") // Key in format of the one fetched from http(s)://your-woodpecker-server/api/signature/public-key
 	host := os.Getenv("CONFIG_SERVICE_HOST")
 	filterRegex := os.Getenv("CONFIG_SERVICE_OVERRIDE_FILTER")
 
@@ -50,11 +51,17 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to read public key file")
 	}
-	pubKeyStr, err := hex.DecodeString(string(pubKeyRaw))
+
+	pemblock, _ := pem.Decode(pubKeyRaw)
+
+	b, err := x509.ParsePKIXPublicKey(pemblock.Bytes)
 	if err != nil {
-		log.Fatal("Failed to decode public key")
+		log.Fatal("Failed to parse public key file ", err)
 	}
-	pubKey := ed25519.PublicKey(pubKeyStr)
+	pubKey, ok := b.(ed25519.PublicKey)
+	if !ok {
+		log.Fatal("Failed to parse public key file")
+	}
 
 	filter := regexp.MustCompile(filterRegex)
 
