@@ -24,7 +24,7 @@ type config struct {
 
 type incoming struct {
 	Repo          *model.Repo  `json:"repo"`
-	Build         *model.Build `json:"build"`
+	Build         *model.Build `json:"pipeline"`
 	Configuration []*config    `json:"configs"`
 }
 
