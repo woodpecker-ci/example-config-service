@@ -6,7 +6,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"encoding/pem"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -47,7 +47,7 @@ func main() {
 		log.Fatal("Please make sure CONFIG_SERVICE_HOST and CONFIG_SERVICE_PUBLIC_KEY_FILE are set properly")
 	}
 
-	pubKeyRaw, err := ioutil.ReadFile(pubKeyPath)
+	pubKeyRaw, err := os.ReadFile(pubKeyPath)
 	if err != nil {
 		log.Fatal("Failed to read public key file")
 	}
@@ -94,7 +94,7 @@ func main() {
 		}
 
 		var req incoming
-		body, err := ioutil.ReadAll(r.Body)
+		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			log.Printf("Error reading body: %v", err)
 			http.Error(w, "can't read body", http.StatusBadRequest)
@@ -121,7 +121,6 @@ func main() {
 			w.WriteHeader(http.StatusNoContent) // use default config
 			// No need to write a response body
 		}
-
 	})
 
 	err = http.ListenAndServe(os.Getenv("CONFIG_SERVICE_HOST"), nil)
