@@ -23,9 +23,9 @@ type config struct {
 }
 
 type incoming struct {
-	Repo          *model.Repo  `json:"repo"`
-	Build         *model.Build `json:"pipeline"`
-	Configuration []*config    `json:"configs"`
+	Repo          *model.Repo     `json:"repo"`
+	Build         *model.Pipeline `json:"pipeline"`
+	Configuration []*config       `json:"configs"`
 }
 
 //go:embed central-pipeline-config.yml
