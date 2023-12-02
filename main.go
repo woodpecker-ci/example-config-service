@@ -12,7 +12,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/go-ap/httpsig"
+	"github.com/go-fed/httpsig"
 	"github.com/joho/godotenv"
 	"github.com/woodpecker-ci/woodpecker/server/model"
 )
@@ -74,20 +74,21 @@ func main() {
 		// check signature
 		pubKeyID := "woodpecker-ci-plugins"
 
-		keystore := httpsig.NewMemoryKeyStore()
-		keystore.SetKey(pubKeyID, pubKey)
-
-		verifier := httpsig.NewVerifier(keystore)
-		verifier.SetRequiredHeaders([]string{"(request-target)", "date"})
-
-		keyID, err := verifier.Verify(r)
+		verifier, err := httpsig.NewVerifier(r)
 		if err != nil {
 			log.Printf("config: invalid or missing signature in http.Request")
 			http.Error(w, "Invalid or Missing Signature", http.StatusBadRequest)
 			return
 		}
 
+		keyID := verifier.KeyId()
 		if keyID != pubKeyID {
+			log.Printf("config: invalid signature in http.Request, keyID missmatch")
+			http.Error(w, "Invalid Signature", http.StatusBadRequest)
+			return
+		}
+
+		if err := verifier.Verify(pubKey, httpsig.ED25519); err != nil {
 			log.Printf("config: invalid signature in http.Request")
 			http.Error(w, "Invalid Signature", http.StatusBadRequest)
 			return
