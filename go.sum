@@ -15,8 +15,8 @@ github.com/robfig/cron v1.2.0/go.mod h1:JGuDeoQd7Z6yL4zQhZ3OPEVHB7fL6Ka6skscFHfm
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.8.3 h1:RP3t2pwF7cMEbC1dqtB6poj3niw/9gnV4Cjg5oW5gtY=
-github.com/woodpecker-ci/woodpecker v1.0.1 h1:aZvy8hYzSisVFPpRV1vca22bX8Nndk3I4Tn73eucCF4=
-github.com/woodpecker-ci/woodpecker v1.0.1/go.mod h1:pGo9oI6dSFPUUVENUpZqpW4D2dFBAISccflcMCEl8oA=
+go.woodpecker-ci.org/woodpecker v1.0.5 h1:pPkSrfzK1y2PRYokJVJdyyvot7IG056Hdin/4Y38C8M=
+go.woodpecker-ci.org/woodpecker v1.0.5/go.mod h1:R9G3k/rj+INGcHgrCd/BlhOaKQGdru5agHMIRZsIDVk=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
