@@ -14,7 +14,7 @@ import (
 
 	"github.com/go-ap/httpsig"
 	"github.com/joho/godotenv"
-	"go.woodpecker-ci.org/woodpecker/server/model"
+	"go.woodpecker-ci.org/woodpecker/v2/server/model"
 )
 
 type config struct {
