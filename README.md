@@ -13,12 +13,14 @@ Use cases for this system are:
 - Preprocessing steps in the pipeline like templating, macros or conversion from
   different pipeline formats to woodpeckers format
 
-This service is written in go, to run it first copy the config example: `cp .env.example .env`
+This service is written in go, to run it first copy the config example:
+`cp .env.example .env`
 Download the public key from your woodpecker instance from
-`http(s)://your-woodpecker-server/api/signature/public-key` and save it to file. Set
-`WOODPECKER_CONFIG_SERVICE_PUBLIC_KEY_FILE` to the path to that file and add a filtering regex.
-The repositories that have a name match the filtering regex will receive the config from
-`central-pipeline-config.yaml`, while all other repositories will continue using their original configuration.
+`http(s)://your-woodpecker-server/api/signature/public-key` and save it
+to file. Set `WOODPECKER_CONFIG_SERVICE_PUBLIC_KEY_FILE` to the path to
+that file and add a filtering regex. The repositories that have a name
+match the filtering regex will receive the config from `central-pipeline-config.yaml`,
+while all other repositories will continue using their original configuration.
 
 Then run using `go run .`.
 
