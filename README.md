@@ -24,8 +24,8 @@ while all other repositories will continue using their original configuration.
 
 Then run using `go run .`.
 
-Make sure to configure your woodpecker instance with the correct **endpoint** and configure the same
-**secret**. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
+Make sure to configure your woodpecker instance with the correct **endpoint** and
+configure the same **secret**. See [Woodpeckers documentation here](https://woodpecker-ci.org/docs/administration/external-configuration-api)
 
 eg:
 
