@@ -5,6 +5,7 @@ The external service gets a **HTTP POST** request with information about the rep
 It can then decide to acknowledge the current configs (By returning **HTTP 204**), or overriding the configurations and returning new ones in the response
 
 Use cases for this system are:
+
 - Centralized configuration for multiple repositories at once
 - Preprocessing steps in the pipeline like templating, macros or conversion from different pipeline formats to woodpeckers format
 
@@ -23,4 +24,3 @@ eg:
 WOODPECKER_CONFIG_SERVICE_ENDPOINT=http://<service>:8000/ciconfig
 WOODPECKER_CONFIG_SERVICE_PUBLIC_KEY_FILE=public-key.pem
 ```
-
