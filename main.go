@@ -28,7 +28,7 @@ type incoming struct {
 	Configuration []*config       `json:"configs"`
 }
 
-//go:embed central-pipeline-config.yml
+//go:embed central-pipeline-config.yaml
 var overrideConfiguration string
 
 func main() {
