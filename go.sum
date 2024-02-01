@@ -24,6 +24,8 @@ go.woodpecker-ci.org/woodpecker/v2 v2.1.1 h1:bAnNkHy1lYJ3zIXPyET+Lf3tmIGGLiKeaQW
 go.woodpecker-ci.org/woodpecker/v2 v2.1.1/go.mod h1:PqkJEtd8rpp7Gq5e3hQPpjkixyf0QSDYp+G/44sGGwI=
 go.woodpecker-ci.org/woodpecker/v2 v2.2.2 h1:astMXuGPmOiwvcvhA6qVSlHL/oXk4e1PeMbYEMT5eIg=
 go.woodpecker-ci.org/woodpecker/v2 v2.2.2/go.mod h1:vuwkxuGI4giScqwD7TEvrOnfq+tHFGmVlCma+uXbdQI=
+go.woodpecker-ci.org/woodpecker/v2 v2.3.0 h1:UKgqTp5lGtIsfDVsWxT3LQ/qxkBAWury7LxlhTZYnl8=
+go.woodpecker-ci.org/woodpecker/v2 v2.3.0/go.mod h1:2Q4ARcK/AQZ71p3PoOSaNswKPnMGiNhhRtItlzAnjnA=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
