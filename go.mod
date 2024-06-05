@@ -2,7 +2,7 @@ module github.com/woodpecker-ci/example-config-service
 
 go 1.22.0
 
-toolchain go1.22.3
+toolchain go1.22.4
 
 require (
 	github.com/go-ap/httpsig v0.0.0-20221203064646-3647b4d88fdf
