@@ -1,3 +1,7 @@
+# Archived
+
+Please checkout the new extensions sample which includes this config extension [here](https://github.com/woodpecker-ci/example-extensions)
+
 # Woodpecker CI Configuration Service example
 
 This repository provides a very simplistic example of how to set up an
